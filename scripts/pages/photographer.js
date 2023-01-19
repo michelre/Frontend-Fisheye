@@ -1,8 +1,8 @@
-/* Récupération des identifiants des photographes dans l'URL 
+// Récupération des identifiants des photographes dans l'URL 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const photographerId = parseInt(urlParams.get("id")); 
-*/
+
 
 
 // Récupération des datas des différents photographes via un fetch
@@ -29,12 +29,13 @@ async function getMedia() {
 
 // TEST AFFICHAGE DATAS PROFIL PHOTOGRAPHE 
 async function displayDataPhotographer(photographers) {
-	photographers.forEach(photographer => {
-		if(photographerId === photographer.id) {
-			photographerInfos(photographer);
-		}
+	const photographer = photographers.find(photographer => {
+		return photographerId === photographer.id
 	});
+	photographerInfosHeader(photographer);
 }
+
+
 
 async function init() {
 	const { photographers } = await getPhotographers();
