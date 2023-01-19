@@ -2,6 +2,7 @@
     display: none;
 }
 
+/*
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
@@ -20,6 +21,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+*/
 
 .modal {
     border-radius: 5px;
@@ -74,3 +76,75 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+/* TESTS MODIFS CARD PHOTOGRAPHE PORTRAIT */
+
+.photograph-header {
+    width: 90%;
+    margin: auto;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FAFAFA;
+    padding: 0 25px;
+    border-radius: 5px;
+}
+
+.photograph-header .photographer-portrait-container{
+    display: flex;
+    justify-content: flex-end;
+    order : 3;
+    width: 33%;
+}
+
+.photograph-header .photographerProfile {
+    width: 33%;
+ }
+
+.photograph-header .photographerName {
+    font-size: 64px;
+    color: #D3573C;
+}
+
+.photograph-header .photographerCity {
+    font-size: 24px;
+    color: #901C1C;
+    padding-bottom: 8px;
+    padding-top: 12px;
+}
+
+.photograph-header .photographerTagline {
+    font-size: 18px;
+    color: #525252;
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+    order: 2;
+    transition: .3s;
+}
+
+.photographer-portrait-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+
+
+
+
+
+

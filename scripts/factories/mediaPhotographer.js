@@ -12,9 +12,9 @@ function photographerInfos(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const { name, portrait, city, country, tagline } = photographer;
 
-    const divPhotographerProfile = document.createElement("div");
-	divPhotographerProfile.classList.add("photographerProfile");
-	divPhotographerProfile.innerHTML = `<h1 class="photographerName">${name}</h1>
+    const BlocPhotographerProfile = document.createElement("div");
+	BlocPhotographerProfile.classList.add("photographerProfile");
+	BlocPhotographerProfile.innerHTML = `<h1 class="photographerName">${name}</h1>
                                         <p class="photographerCity">${city}, ${country}
                                         <p class="photographerTagline">${tagline}</p>`;
 	const photographerPortraitContainer = document.createElement("div");
@@ -24,6 +24,6 @@ function photographerInfos(photographer) {
 	photographerPortrait.setAttribute("alt", "");
 	photographerPortraitContainer.appendChild(photographerPortrait);
 	photographerHeader.appendChild(photographerPortraitContainer);
-	photographerHeader.appendChild(divPhotographerProfile);
+	photographerHeader.appendChild(BlocPhotographerProfile);
 	return photographerHeader;
 }
