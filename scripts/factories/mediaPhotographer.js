@@ -1,5 +1,3 @@
-// Récupération des identifiants des photographes dans l'URL
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const getUrlIdPhotographers = parseInt(urlParams.get("id"));
+// AJOUTER ICI LA FACTORY SPECIFIQUES AUX MEDIAS DES PHOTOGRAPHES (Images et vidéo) 
+// LA CREATION DU DOM SE FAIT ICI
 
