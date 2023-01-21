@@ -25,5 +25,3 @@ async function init() {
 };
     
 init();
-    
-// Index.js : Récupération datas Photographes via un Fetch - Affichage HomePage 

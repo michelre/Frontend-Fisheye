@@ -4,7 +4,6 @@ const urlParams = new URLSearchParams(queryString);
 const photographerId = parseInt(urlParams.get("id")); 
 
 
-
 // Récupération des datas des différents photographes via un fetch
 async function getPhotographers() {
     await fetch("./data/photographers.json")
@@ -27,7 +26,7 @@ async function getMedia() {
 }
 
 
-// TEST AFFICHAGE DATAS PROFIL PHOTOGRAPHE 
+// Page photographe : Affichage des datas liées au profil des protographes
 async function displayDataPhotographer(photographers) {
 	const photographer = photographers.find(photographer => {
 		return photographerId === photographer.id
@@ -36,10 +35,24 @@ async function displayDataPhotographer(photographers) {
 }
 
 
+// TEST AFFICHAGE DES PHOTOS DANS LA SECTION GALERIE 
+async function displayDataGalery(media) {
+	const photographerGalery = document.querySelector('.photographer-galery');
+	media.forEach(itemMedia => {
+		if (photographerId === itemMedia.photographerId) {
+			const photographerGaleryModel = photographerMediaFactory(itemMedia);
+			const userGaleryCardDOM = photographerGaleryModel.CreateGaleryDom();
+			photographerGalery.appendChild(userGaleryCardDOM);    
+		}
+	})
+}
+
+
 
 async function init() {
 	const { photographers } = await getPhotographers();
-	//const { media } = await getMedia();
+	const { media } = await getMedia();
 	displayDataPhotographer(photographers);
+	displayDataGalery(media);
 }
 init();

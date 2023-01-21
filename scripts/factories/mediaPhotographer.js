@@ -25,12 +25,60 @@ function photographerInfosHeader(photographer) {
 
 
 
-/* Ex media img/video 
-function mediaFactory() {
-	if (media.type === 'video') {
-		'video' // Créer une balise video
-	} else {
-		'img' // Créer une balise image
+
+/* TEST FACTORY MEDIA */
+class MediaFactory {
+	constructor(data) {
+		if (data.type === "image") {
+			return new Img(media);
+		} else if (data.type === "video") {
+			return new Video(media);
+		} else {
+			throw "Unknown type format"
+		}
 	}
 }
-*/
+
+/*
+class MediaFactory {
+	build(data) {
+		if (data.hasOwnProperty("image")) {
+			data.src = data.image;
+  
+			return new Image(data);
+		} else {
+			data.src = data.video;
+  
+			return new Video(data);
+		}
+	}
+  }
+  */
+
+
+// TEST FONCTION CREATION DE LA GALLERIE PHOTOS 
+function photographerMediaFactory(media) {
+	const {  photographerId, title, image, video } = media;
+
+	function CreateGaleryDom() {
+		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
+		BlocPhotographerGalery.classList.add("container");
+
+		const photographerArticle = document.createElement("article");
+		photographerArticle.classList.add("photographer-galery-item");
+
+		const photographerMediaImg = document.createElement("div");
+		const photographerMediaVideo = document.createElement("div");
+		if (image) {
+			photographerMediaImg.classList.add("photographer-galery-media")
+			photographerMediaImg.innerHTML = `<img class="imgGalery" src="assets/photos/${photographerId}/${image}" alt="${title}" tabindex="0">`;
+		} else if (video) {
+			photographerMediaVideo.classList.add("photographer-galery-media")
+			photographerMediaVideo.innerHTML = `<img class="imgGalery" src="assets/photos/${photographerId}/${video}" alt="${title}" tabindex="0">`;
+		}
+		photographerArticle.appendChild(photographerMediaImg);
+		photographerArticle.appendChild(photographerMediaVideo);
+		return (photographerArticle);
+	}
+	return { CreateGaleryDom };
+}
