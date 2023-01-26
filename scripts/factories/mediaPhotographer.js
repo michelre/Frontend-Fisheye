@@ -1,7 +1,3 @@
-// AJOUTER ICI LA FACTORY SPECIFIQUES AUX MEDIAS DES PHOTOGRAPHES (Images et vidéo) 
-// LA CREATION DU DOM SE FAIT ICI
-
-
 // Test ajout d'une fonction pour récupérer les infos sur le profil du photographe 
 function photographerInfosHeader(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
@@ -26,7 +22,7 @@ function photographerInfosHeader(photographer) {
 
 
 
-/* TEST FACTORY MEDIA */
+/* TEST FACTORY MEDIA 
 class MediaFactory {
 	constructor(data) {
 		if (data.type === "image") {
@@ -38,27 +34,28 @@ class MediaFactory {
 		}
 	}
 }
+*/
 
-/*
 class MediaFactory {
-	build(data) {
-		if (data.hasOwnProperty("image")) {
-			data.src = data.image;
-  
-			return new Image(data);
+	constructor(media) {
+		this.media = media
+	}
+
+	render() {
+		if (this.media.image) {
+			return `<img class="imgGalery" src="assets/photos/${this.media.photographerId}/${this.media.image}" alt="${this.media.title}" tabindex="0">`
 		} else {
-			data.src = data.video;
-  
-			return new Video(data);
+			return `<video controls width="250">
+				<source src="assets/photos/${this.media.photographerId}/${this.media.video}" type="video/mp4" >`
 		}
 	}
-  }
-  */
+
+}
+
 
 
 // TEST FONCTION CREATION DE LA GALLERIE PHOTOS 
 function photographerMediaFactory(media) {
-	const {  photographerId, title, image, video } = media;
 
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
@@ -67,18 +64,21 @@ function photographerMediaFactory(media) {
 		const photographerArticle = document.createElement("article");
 		photographerArticle.classList.add("photographer-galery-item");
 
-		const photographerMediaImg = document.createElement("div");
-		const photographerMediaVideo = document.createElement("div");
-		if (image) {
-			photographerMediaImg.classList.add("photographer-galery-media")
-			photographerMediaImg.innerHTML = `<img class="imgGalery" src="assets/photos/${photographerId}/${image}" alt="${title}" tabindex="0">`;
-		} else if (video) {
-			photographerMediaVideo.classList.add("photographer-galery-media")
-			photographerMediaVideo.innerHTML = `<img class="imgGalery" src="assets/photos/${photographerId}/${video}" alt="${title}" tabindex="0">`;
-		}
-		photographerArticle.appendChild(photographerMediaImg);
-		photographerArticle.appendChild(photographerMediaVideo);
+		// Transformer la div en a (peut être)
+		const photographerMedia = document.createElement("div");
+		//photographerMedia = setAttribute('href',"#")
+
+		const mediaFactory = new MediaFactory(media);
+		photographerMedia.classList.add('photographer-galery-media');
+		photographerMedia.innerHTML = mediaFactory.render();
+		photographerArticle.appendChild(photographerMedia);
+		
 		return (photographerArticle);
 	}
 	return { CreateGaleryDom };
 }
+
+
+
+
+// SELECT OPTION CLASSIQUE POUR LE TRI 

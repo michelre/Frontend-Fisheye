@@ -146,5 +146,11 @@ form input {
 
 
 
+.imgGalery {
+    width: 10%;
+}
 
 
+.photographer-galery-media {
+    display: block;
+}
