@@ -57,6 +57,11 @@ class MediaFactory {
 // TEST FONCTION CREATION DE LA GALLERIE PHOTOS 
 function photographerMediaFactory(media) {
 
+/* TEST */
+	const {
+		id, photographerId, title, image, likes, video
+	} = media;
+
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
@@ -68,10 +73,26 @@ function photographerMediaFactory(media) {
 		const photographerMedia = document.createElement("div");
 		//photographerMedia = setAttribute('href',"#")
 
+
+/* TEST */
+		// =============== CREATION PARAGRAPHE CONTENANT NOM DE LA PHOTO ===============
+		const photographerArticleInfos = document.createElement("div");
+		photographerArticleInfos.classList.add("photographer-galery-item-info");
+		const photographerArticleTitle = document.createElement("h2");
+		//photographerArticleTitle.innerHTML = this.title;
+		photographerArticleTitle.classList.add("title-photo");
+		photographerArticleTitle.textContent = `${title}`;
+		photographerArticleTitle.setAttribute("tabindex", "0");
+		photographerArticleInfos.appendChild(photographerArticleTitle);
+
+
+
 		const mediaFactory = new MediaFactory(media);
 		photographerMedia.classList.add('photographer-galery-media');
 		photographerMedia.innerHTML = mediaFactory.render();
+
 		photographerArticle.appendChild(photographerMedia);
+		photographerArticle.appendChild(photographerArticleInfos);
 		
 		return (photographerArticle);
 	}
@@ -81,4 +102,15 @@ function photographerMediaFactory(media) {
 
 
 
+
+
+/* SEMAINE PRO : 
+
+	- Mettre en forme la gallerie photo
+	- Check l'accessibilité 
+	- Travailler le Responsive (Header + Gallerie principalement)
+	- Commencer le select pour le tri par Popularité/Date/Likes 
+
 // SELECT OPTION CLASSIQUE POUR LE TRI 
+
+*/

@@ -146,11 +146,44 @@ form input {
 
 
 
-.imgGalery {
-    width: 10%;
+/* PAGE PHOTOGRAPHE : BLOC GALLERIE PHOTOS */
+
+.photographer-galery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 30px 0 130px 0;
 }
 
+.photographer-galery-item {
+    margin: auto;
+    min-width: 350px;
+    overflow: hidden;
+    cursor: pointer;
+}
 
+.imgGalery {
+    width: 350px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 5px;
+}
+
+/*
 .photographer-galery-media {
     display: block;
 }
+*/
+
+.photographer-galery-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    color: #901C1C;
+    font-size: 24px;
+}
+
+
+
