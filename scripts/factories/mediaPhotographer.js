@@ -54,7 +54,7 @@ class MediaFactory {
 
 
 
-// TEST FONCTION CREATION DE LA GALLERIE PHOTOS 
+// Fonction de création de la gallerie photos des photographes
 function photographerMediaFactory(media) {
 
 /* TEST */
@@ -65,26 +65,21 @@ function photographerMediaFactory(media) {
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
-
 		const photographerArticle = document.createElement("article");
 		photographerArticle.classList.add("photographer-galery-item");
-
 		// Transformer la div en a (peut être)
 		const photographerMedia = document.createElement("div");
 		//photographerMedia = setAttribute('href',"#")
 
-
 /* TEST */
-		// =============== CREATION PARAGRAPHE CONTENANT NOM DE LA PHOTO ===============
+		// Section ajoutant le nom de la photo 
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
 		const photographerArticleTitle = document.createElement("h2");
-		//photographerArticleTitle.innerHTML = this.title;
 		photographerArticleTitle.classList.add("title-photo");
 		photographerArticleTitle.textContent = `${title}`;
 		photographerArticleTitle.setAttribute("tabindex", "0");
 		photographerArticleInfos.appendChild(photographerArticleTitle);
-
 
 
 		const mediaFactory = new MediaFactory(media);
