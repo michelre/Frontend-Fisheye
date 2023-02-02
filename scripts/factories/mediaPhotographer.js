@@ -1,4 +1,4 @@
-// Test ajout d'une fonction pour récupérer les infos sur le profil du photographe 
+// Fonction récupérant les infos sur le profil du photographe 
 function photographerInfosHeader(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const { name, portrait, city, country, tagline } = photographer;
@@ -20,22 +20,7 @@ function photographerInfosHeader(photographer) {
 }
 
 
-
-
-/* TEST FACTORY MEDIA 
-class MediaFactory {
-	constructor(data) {
-		if (data.type === "image") {
-			return new Img(media);
-		} else if (data.type === "video") {
-			return new Video(media);
-		} else {
-			throw "Unknown type format"
-		}
-	}
-}
-*/
-
+/* Factory Media permettant de trier image et vidéo */
 class MediaFactory {
 	constructor(media) {
 		this.media = media
@@ -45,7 +30,7 @@ class MediaFactory {
 		if (this.media.image) {
 			return `<img class="imgGalery" src="assets/photos/${this.media.photographerId}/${this.media.image}" alt="${this.media.title}" tabindex="0">`
 		} else {
-			return `<video controls width="250">
+			return `<video controls class="imgGalery">
 				<source src="assets/photos/${this.media.photographerId}/${this.media.video}" type="video/mp4" >`
 		}
 	}
@@ -108,4 +93,44 @@ function photographerMediaFactory(media) {
 
 // SELECT OPTION CLASSIQUE POUR LE TRI 
 
+*/
+
+
+/* TEST FONCTION DE TRI VIA LE SELECT */
+	function selectData(Element){
+
+		switch (Element) {
+			case "Popularité": {
+				media.sort((a, b) => b.likes - a.likes);
+				}
+				break;
+
+			case "Date": {
+				media.sort((a, b) => new Date(a.date) - new Date(b.date));
+				}
+				break;
+				
+			case "Titre": {
+				media.sort((a, b) => {
+					if (a.title < b.title) { return -1; }
+					});
+				}
+				break;
+	}
+
+	options.forEach((option) => {
+		option.addEventListener("click", (e) => {
+			selectData(e);
+			displayDataGalery(media);
+		});
+	});	
+
+}
+
+
+/*
+const selectElement = document.querySelector('tri');
+selectElement.addEventListener('click', (e) => {
+	return { CreateGaleryDom };
+})
 */
