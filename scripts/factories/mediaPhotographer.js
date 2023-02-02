@@ -96,28 +96,8 @@ function photographerMediaFactory(media) {
 */
 
 
-/* TEST FONCTION DE TRI VIA LE SELECT */
-	function selectData(Element){
 
-		switch (Element) {
-			case "Popularité": {
-				media.sort((a, b) => b.likes - a.likes);
-				}
-				break;
-
-			case "Date": {
-				media.sort((a, b) => new Date(a.date) - new Date(b.date));
-				}
-				break;
-				
-			case "Titre": {
-				media.sort((a, b) => {
-					if (a.title < b.title) { return -1; }
-					});
-				}
-				break;
-	}
-
+/*
 	options.forEach((option) => {
 		option.addEventListener("click", (e) => {
 			selectData(e);
@@ -126,6 +106,7 @@ function photographerMediaFactory(media) {
 	});	
 
 }
+*/
 
 
 /*
