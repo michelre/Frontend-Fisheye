@@ -86,10 +86,21 @@ function photographerMediaFactory(media) {
 function getLikesPrice (data, photographers) {
 	const blocLikesPrice = document.querySelector("#likes-price");
 
+
+	/* TEST - AFFICHAGE LIKES */
+	const photographerLikes = document.createElement("div");
+	photographerLikes.className = "bloc-likes";
+	blocLikesPrice.appendChild(photographerLikes);
+	const photographerLikesHeart = document.createElement("i");
+	photographerLikesHeart.className = "fas fa-heart";
+	photographerLikes.appendChild(photographerLikesHeart);
+
+
+
 	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
 	const photographerPrice = document.createElement("span");
 	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
-	photographerPrice.className = "price";
+	photographerPrice.className = "photographer-price";
 	blocLikesPrice.appendChild(photographerPrice)
 	console.log(photographerPrice);
 	for (const photographer of photographers) {
