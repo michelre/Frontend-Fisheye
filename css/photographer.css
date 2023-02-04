@@ -210,3 +210,21 @@ form input {
     font-size: 18px;
     border: none;
 }
+
+
+
+/* PAGE PHOTOGRAPHE : BLOC LIKES & PRICE */
+#likes-price {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    font-size: 24px;
+    font-weight: 500;
+    background: #DB8876;
+    border-radius: 5px;
+    width: 376px;
+    height: 70px;
+    bottom: 0;
+    right: 100px;
+}

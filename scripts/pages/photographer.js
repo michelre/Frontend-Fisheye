@@ -35,7 +35,7 @@ async function displayDataPhotographer(photographers) {
 }
 
 
-// TEST AFFICHAGE DES PHOTOS DANS LA SECTION GALERIE 
+// Affichage des photos dans la gallerie dédiée
 async function displayDataGalery(media) {
 	const photographerGalery = document.querySelector('.photographer-galery');
 	photographerGalery.innerHTML = '';
@@ -47,7 +47,7 @@ async function displayDataGalery(media) {
 }
 
 
-/* TEST FONCTION DE TRI VIA LE SELECT */
+// Fonction de tri via le Select 
 function sortMedia(media, triValue) {
 
 	switch (triValue) {
@@ -67,7 +67,7 @@ function sortMedia(media, triValue) {
 	}
 }
 
-
+// Ecoute de l'évènement Select et affichage du résultat du tri 
 function selectData(media) {
 	const select = document.querySelector('#test-select');
 	select.addEventListener('change', (e) => {
@@ -84,6 +84,7 @@ async function init() {
 	displayDataPhotographer(photographers);
 	displayDataGalery(sortedMedia);
 	selectData(media);
+	getLikesPrice(media, photographers);
 }
 init();
 

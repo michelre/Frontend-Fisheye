@@ -56,7 +56,7 @@ function photographerMediaFactory(media) {
 		const photographerMedia = document.createElement("div");
 		//photographerMedia = setAttribute('href',"#")
 
-/* TEST */
+
 		// Section ajoutant le nom de la photo 
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
@@ -82,36 +82,22 @@ function photographerMediaFactory(media) {
 
 
 
+/* TEST - CREATION BLOC LIKES & PRICE */
+function getLikesPrice (data, photographers) {
+	const blocLikesPrice = document.querySelector("#likes-price");
 
-
-/* SEMAINE PRO : 
-
-	- Mettre en forme la gallerie photo
-	- Check l'accessibilité 
-	- Travailler le Responsive (Header + Gallerie principalement)
-	- Commencer le select pour le tri par Popularité/Date/Likes 
-
-// SELECT OPTION CLASSIQUE POUR LE TRI 
-
-*/
-
-
-
-/*
-	options.forEach((option) => {
-		option.addEventListener("click", (e) => {
-			selectData(e);
-			displayDataGalery(media);
-		});
-	});	
+	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
+	const photographerPrice = document.createElement("span");
+	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
+	photographerPrice.className = "price";
+	blocLikesPrice.appendChild(photographerPrice)
+	console.log(photographerPrice);
+	for (const photographer of photographers) {
+		if (photographerId === photographer.id) {
+			photographerPrice.innerHTML = `${photographer.price}€ / jour`;
+		}
+	}
 
 }
-*/
 
 
-/*
-const selectElement = document.querySelector('tri');
-selectElement.addEventListener('click', (e) => {
-	return { CreateGaleryDom };
-})
-*/
