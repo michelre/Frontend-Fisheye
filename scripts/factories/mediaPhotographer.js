@@ -80,6 +80,9 @@ function photographerMediaFactory(media) {
 }
 
 
+const totalLike = document.createElement("span");
+const arrayLikes = [];
+// let likesSum = 0;
 
 
 /* TEST - CREATION BLOC LIKES & PRICE */
@@ -91,9 +94,48 @@ function getLikesPrice (data, photographers) {
 	const photographerLikes = document.createElement("div");
 	photographerLikes.className = "bloc-likes";
 	blocLikesPrice.appendChild(photographerLikes);
+	totalLike.className = "total-like";
+	photographerLikes.appendChild(totalLike);
 	const photographerLikesHeart = document.createElement("i");
 	photographerLikesHeart.className = "fas fa-heart";
 	photographerLikes.appendChild(photographerLikesHeart);
+
+
+	for (const mediaItem of media) {
+		if (photographerId === mediaItem.photographerId) {
+			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 );
+			totalLike.innerHTML = `${media.likes}`;
+			
+			
+		}
+	}
+	
+
+/*
+	// TEST - CALCUL TOTAL DES LIKES 
+	for (const mediaItem of data) {
+		if (photographerId === mediaItem.photographerId) {
+			const blocNbrLikes = document.getElementById(`${data.likes}`);
+			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 )
+			blocNbrLikes.innerHTML = totalLike;
+		}
+	}
+*/
+
+/* 
+	// TEST - CALCUL TOTAL DES LIKES
+	for (const mediaItem of data) {
+		if (photographerId === mediaItem.photographerId) {
+			const blocNbrLikes = document.getElementById(`${mediaItem.id}`);
+			const nbrLikes = parseInt(blocNbrLikes.innerHTML);
+			arrayLikes.push(nbrLikes);
+		}
+	}
+	for (let i = 0; i < arrayLikes.length; i++) {
+		likesSum += arrayLikes[i];
+	}
+	totalLike.innerHTML = likesSum;
+*/
 
 
 
