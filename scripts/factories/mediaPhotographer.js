@@ -56,7 +56,7 @@ function photographerMediaFactory(media) {
 		const photographerMedia = document.createElement("div");
 		//photographerMedia = setAttribute('href',"#")
 
-/* TEST */
+
 		// Section ajoutant le nom de la photo 
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
@@ -80,28 +80,77 @@ function photographerMediaFactory(media) {
 }
 
 
+const totalLike = document.createElement("span");
+const arrayLikes = [];
+// let likesSum = 0;
 
 
+/* TEST - CREATION BLOC LIKES & PRICE */
+function getLikesPrice (data, photographers) {
+	const blocLikesPrice = document.querySelector("#likes-price");
 
 
-/* SEMAINE PRO : 
-
-	- Mettre en forme la gallerie photo
-	- Check l'accessibilité 
-	- Travailler le Responsive (Header + Gallerie principalement)
-	- Commencer le select pour le tri par Popularité/Date/Likes 
-
-// SELECT OPTION CLASSIQUE POUR LE TRI 
-
-*/
-
+	/* TEST - AFFICHAGE LIKES */
+	const photographerLikes = document.createElement("div");
+	photographerLikes.className = "bloc-likes";
+	blocLikesPrice.appendChild(photographerLikes);
+	totalLike.className = "total-like";
+	photographerLikes.appendChild(totalLike);
+	const photographerLikesHeart = document.createElement("i");
+	photographerLikesHeart.className = "fas fa-heart";
+	photographerLikes.appendChild(photographerLikesHeart);
 
 
-
+	for (const mediaItem of media) {
+		if (photographerId === mediaItem.photographerId) {
+			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 );
+			totalLike.innerHTML = `${media.likes}`;
+			
+			
+		}
+	}
+	
 
 /*
-const selectElement = document.querySelector('tri');
-selectElement.addEventListener('click', (e) => {
-	return { CreateGaleryDom };
-})
+	// TEST - CALCUL TOTAL DES LIKES 
+	for (const mediaItem of data) {
+		if (photographerId === mediaItem.photographerId) {
+			const blocNbrLikes = document.getElementById(`${data.likes}`);
+			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 )
+			blocNbrLikes.innerHTML = totalLike;
+		}
+	}
 */
+
+/* 
+	// TEST - CALCUL TOTAL DES LIKES
+	for (const mediaItem of data) {
+		if (photographerId === mediaItem.photographerId) {
+			const blocNbrLikes = document.getElementById(`${mediaItem.id}`);
+			const nbrLikes = parseInt(blocNbrLikes.innerHTML);
+			arrayLikes.push(nbrLikes);
+		}
+	}
+	for (let i = 0; i < arrayLikes.length; i++) {
+		likesSum += arrayLikes[i];
+	}
+	totalLike.innerHTML = likesSum;
+*/
+
+
+
+	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
+	const photographerPrice = document.createElement("span");
+	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
+	photographerPrice.className = "photographer-price";
+	blocLikesPrice.appendChild(photographerPrice)
+	console.log(photographerPrice);
+	for (const photographer of photographers) {
+		if (photographerId === photographer.id) {
+			photographerPrice.innerHTML = `${photographer.price}€ / jour`;
+		}
+	}
+
+}
+
+
