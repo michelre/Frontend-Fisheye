@@ -5,12 +5,12 @@ const photographerId = parseInt(urlParams.get("id"));
 
 
 // Récupération des datas des différents photographes via un fetch
-async function getPhotographers() {
-    await fetch("./data/photographers.json")
+async function getPhotographer() {
+    const photographers = await fetch("./data/photographers.json")
 		.then((res) => res.json())
-		.then((data) => (photographers = data.photographers));
+		.then(data => data.photographers)
 	return {
-		photographers: [...photographers]            
+		photographer: photographers.find(p => p.id === photographerId)           
 	};
 }
 
@@ -27,10 +27,7 @@ async function getMedia() {
 
 
 // Page photographe : Affichage des datas liées au profil des protographes
-async function displayDataPhotographer(photographers) {
-	const photographer = photographers.find(photographer => {
-		return photographerId === photographer.id
-	});
+async function displayDataPhotographer(photographer) {
 	photographerInfosHeader(photographer);
 }
 
@@ -78,15 +75,12 @@ function selectData(media) {
 
 
 async function init() {
-	const { photographers } = await getPhotographers();
+	const { photographer } = await getPhotographer();
 	const { media } = await getMedia();
 	let sortedMedia = sortMedia(media, 'popularite'); // Par défaut select est sur popularite 
-	displayDataPhotographer(photographers);
+	displayDataPhotographer(photographer);
 	displayDataGalery(sortedMedia);
 	selectData(media);
-	getLikesPrice(media, photographers);
+	getLikesPrice(media, photographer);
 }
 init();
-
-// total like
-// const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 )
