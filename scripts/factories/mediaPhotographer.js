@@ -1,4 +1,4 @@
-// Fonction récupérant les infos sur le profil du photographe 
+// Fonction récupérant les infos sur le profil du photographe
 function photographerInfosHeader(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const { name, portrait, city, country, tagline } = photographer;
@@ -44,8 +44,9 @@ function photographerMediaFactory(media) {
 
 /* TEST */
 	const {
-		id, photographerId, title, image, likes, video
+		id, photographerId, title, image, video
 	} = media;
+	let likes = media.likes
 
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
@@ -57,7 +58,7 @@ function photographerMediaFactory(media) {
 		//photographerMedia = setAttribute('href',"#")
 
 
-		// Section ajoutant le nom de la photo 
+		// Section ajoutant le nom de la photo
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
 		const photographerArticleTitle = document.createElement("h2");
@@ -66,6 +67,15 @@ function photographerMediaFactory(media) {
 		photographerArticleTitle.setAttribute("tabindex", "0");
 		photographerArticleInfos.appendChild(photographerArticleTitle);
 
+		const likesElement = document.createElement('button');
+		const likesHeart = document.createElement('i')
+		likesHeart.className = "fas fa-heart"
+		const likesCount = document.createElement('span')
+		likesCount.innerText = likes
+		likesElement.appendChild(likesCount)
+		likesElement.appendChild(likesHeart)
+		photographerArticleInfos.appendChild(likesElement)
+
 
 		const mediaFactory = new MediaFactory(media);
 		photographerMedia.classList.add('photographer-galery-media');
@@ -73,20 +83,28 @@ function photographerMediaFactory(media) {
 
 		photographerArticle.appendChild(photographerMedia);
 		photographerArticle.appendChild(photographerArticleInfos);
-		
+
+		likesElement.addEventListener('click', () => {
+			likes += 1
+			likesCount.innerText = likes
+			const totalLike = document.querySelector('.total-like')
+			totalLike.innerText = parseInt(totalLike.innerText) + 1
+			likesElement.setAttribute('disabled', '')
+		})
+
+
 		return (photographerArticle);
 	}
 	return { CreateGaleryDom };
 }
 
 
-const totalLike = document.createElement("span");
 const arrayLikes = [];
 // let likesSum = 0;
 
 
 /* TEST - CREATION BLOC LIKES & PRICE */
-function getLikesPrice (data, photographers) {
+function getLikesPrice (media, photographer) {
 	const blocLikesPrice = document.querySelector("#likes-price");
 
 
@@ -94,62 +112,25 @@ function getLikesPrice (data, photographers) {
 	const photographerLikes = document.createElement("div");
 	photographerLikes.className = "bloc-likes";
 	blocLikesPrice.appendChild(photographerLikes);
-	totalLike.className = "total-like";
+	const totalLike = document.createElement("span");
+	totalLike.className = "total-like"
 	photographerLikes.appendChild(totalLike);
 	const photographerLikesHeart = document.createElement("i");
 	photographerLikesHeart.className = "fas fa-heart";
 	photographerLikes.appendChild(photographerLikesHeart);
 
 
-	for (const mediaItem of media) {
-		if (photographerId === mediaItem.photographerId) {
-			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 );
-			totalLike.innerHTML = `${media.likes}`;
-			
-			
-		}
-	}
-	
-
-/*
-	// TEST - CALCUL TOTAL DES LIKES 
-	for (const mediaItem of data) {
-		if (photographerId === mediaItem.photographerId) {
-			const blocNbrLikes = document.getElementById(`${data.likes}`);
-			const totalLike = media.reduce((acc, curr) => acc + curr.likes, 0 )
-			blocNbrLikes.innerHTML = totalLike;
-		}
-	}
-*/
-
-/* 
-	// TEST - CALCUL TOTAL DES LIKES
-	for (const mediaItem of data) {
-		if (photographerId === mediaItem.photographerId) {
-			const blocNbrLikes = document.getElementById(`${mediaItem.id}`);
-			const nbrLikes = parseInt(blocNbrLikes.innerHTML);
-			arrayLikes.push(nbrLikes);
-		}
-	}
-	for (let i = 0; i < arrayLikes.length; i++) {
-		likesSum += arrayLikes[i];
-	}
-	totalLike.innerHTML = likesSum;
-*/
+	const likeCount = media.reduce((acc, curr) => acc + curr.likes, 0 );
+	totalLike.innerHTML = likeCount;
 
 
 
-	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
+	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */
 	const photographerPrice = document.createElement("span");
 	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
 	photographerPrice.className = "photographer-price";
 	blocLikesPrice.appendChild(photographerPrice)
-	console.log(photographerPrice);
-	for (const photographer of photographers) {
-		if (photographerId === photographer.id) {
-			photographerPrice.innerHTML = `${photographer.price}€ / jour`;
-		}
-	}
+	photographerPrice.innerHTML = `${photographer.price}€ / jour`;
 
 }
 
