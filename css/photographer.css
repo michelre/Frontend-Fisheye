@@ -228,3 +228,65 @@ form input {
     bottom: 0;
     right: 100px;
 }
+
+
+
+
+
+
+/* PAGE PHOTOGRAPHE : LIGHTBOX */
+.lightbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    z-index: 100;
+    width: 50%;
+    height: 50%;
+    background: rgb(255, 255, 255);
+    border: 3px solid red;
+    /* visibility: hidden; */
+}
+
+.lightbox {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 2%;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    background: url(/assets/icons/close.svg) center center / 100% 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.lightbox .slide {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: #901C1C;
+}
+
+.lightbox i {
+    font-size: 42px;
+}
+
+.lightbox .lightbox-prev {
+    top: 50%;
+    left: 0;
+}
+
+.lightbox .lightbox-next {
+    top: 50%;
+    right: 0;
+}
+

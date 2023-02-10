@@ -88,7 +88,7 @@ function photographerMediaFactory(media) {
 		/* Ajout au clic d'un like par photo*/ 
 		likesElement.addEventListener('click', () => {
 			likes += 1;
-			likesCount.innerText = likes + 1;
+			likesCount.innerText = likes;
 			const totalLike = document.querySelector('.total-like');
 			totalLike.innerText = parseInt(totalLike.innerText) + 1;
 			likesElement.setAttribute('disabled', ''); // Ajouter un aria une fois le bouton désactiver pour indiquer à l'utilisateur qu'il ne peut que liker qu'une fois 
