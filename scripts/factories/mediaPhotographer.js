@@ -69,6 +69,7 @@ function photographerMediaFactory(media) {
 
 		// Section ajoutant les likes sur les photos
 		const likesElement = document.createElement('button');
+		likesElement.classList.add("btn-like-photo")
 		const likesHeart = document.createElement('i');
 		likesHeart.classList = "fas fa-heart";
 		const likesCount = document.createElement('span');
