@@ -1,4 +1,4 @@
-// Fonction récupérant les infos sur le profil du photographe
+// Fonction récupérant les infos sur le profil du photographe 
 function photographerInfosHeader(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     const { name, portrait, city, country, tagline } = photographer;
@@ -46,7 +46,7 @@ function photographerMediaFactory(media) {
 	const {
 		id, photographerId, title, image, video
 	} = media;
-	let likes = media.likes
+	let likes = media.likes;
 
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
@@ -58,7 +58,7 @@ function photographerMediaFactory(media) {
 		//photographerMedia = setAttribute('href',"#")
 
 
-		// Section ajoutant le nom de la photo
+		// Section ajoutant le nom de la photo 
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
 		const photographerArticleTitle = document.createElement("h2");
@@ -67,14 +67,16 @@ function photographerMediaFactory(media) {
 		photographerArticleTitle.setAttribute("tabindex", "0");
 		photographerArticleInfos.appendChild(photographerArticleTitle);
 
+		// Section ajoutant les likes sur les photos
 		const likesElement = document.createElement('button');
-		const likesHeart = document.createElement('i')
-		likesHeart.className = "fas fa-heart"
-		const likesCount = document.createElement('span')
-		likesCount.innerText = likes
-		likesElement.appendChild(likesCount)
-		likesElement.appendChild(likesHeart)
-		photographerArticleInfos.appendChild(likesElement)
+		likesElement.classList.add("btn-like-photo")
+		const likesHeart = document.createElement('i');
+		likesHeart.classList = "fas fa-heart";
+		const likesCount = document.createElement('span');
+		likesCount.innerText = likes;
+		likesElement.appendChild(likesCount);
+		likesElement.appendChild(likesHeart);
+		photographerArticleInfos.appendChild(likesElement);
 
 
 		const mediaFactory = new MediaFactory(media);
@@ -84,23 +86,22 @@ function photographerMediaFactory(media) {
 		photographerArticle.appendChild(photographerMedia);
 		photographerArticle.appendChild(photographerArticleInfos);
 
+		/* Ajout au clic d'un like par photo*/ 
 		likesElement.addEventListener('click', () => {
-			likes += 1
-			likesCount.innerText = likes
-			const totalLike = document.querySelector('.total-like')
-			totalLike.innerText = parseInt(totalLike.innerText) + 1
-			likesElement.setAttribute('disabled', '')
+			likes += 1;
+			likesCount.innerText = likes;
+			const totalLike = document.querySelector('.total-like');
+			totalLike.innerText = parseInt(totalLike.innerText) + 1;
+			likesElement.setAttribute('disabled', ''); // Ajouter un aria une fois le bouton désactiver pour indiquer à l'utilisateur qu'il ne peut que liker qu'une fois 
 		})
-
-
+		
 		return (photographerArticle);
 	}
 	return { CreateGaleryDom };
 }
 
 
-const arrayLikes = [];
-// let likesSum = 0;
+
 
 
 /* TEST - CREATION BLOC LIKES & PRICE */
@@ -113,25 +114,22 @@ function getLikesPrice (media, photographer) {
 	photographerLikes.className = "bloc-likes";
 	blocLikesPrice.appendChild(photographerLikes);
 	const totalLike = document.createElement("span");
-	totalLike.className = "total-like"
+	totalLike.className = "total-like";
 	photographerLikes.appendChild(totalLike);
 	const photographerLikesHeart = document.createElement("i");
 	photographerLikesHeart.className = "fas fa-heart";
 	photographerLikes.appendChild(photographerLikesHeart);
 
-
+	// Calcul de l'affichage des likes globale 
 	const likeCount = media.reduce((acc, curr) => acc + curr.likes, 0 );
 	totalLike.innerHTML = likeCount;
 
 
-
-	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */
+	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
 	const photographerPrice = document.createElement("span");
 	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
 	photographerPrice.className = "photographer-price";
 	blocLikesPrice.appendChild(photographerPrice)
 	photographerPrice.innerHTML = `${photographer.price}€ / jour`;
-
 }
-
 
