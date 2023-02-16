@@ -48,6 +48,13 @@ function photographerMediaFactory(media) {
 	} = media;
 	let likes = media.likes;
 
+	function createLightboxDOM() {
+		const mediaItem = document.createElement('li');
+		const mediaFactory = new MediaFactory(media)
+		mediaItem.innerHTML = mediaFactory.render()
+		return mediaItem;
+	}
+
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
@@ -97,7 +104,7 @@ function photographerMediaFactory(media) {
 		
 		return (photographerArticle);
 	}
-	return { CreateGaleryDom };
+	return { CreateGaleryDom, createLightboxDOM };
 }
 
 
