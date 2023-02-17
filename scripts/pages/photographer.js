@@ -43,6 +43,17 @@ async function displayDataGalery(media) {
 	})
 }
 
+// Affichage Lightbox
+function displayDataLightbox(medias) {
+	const lightbox = document.querySelector('.lightbox');
+	lightbox.innerHTML = '';
+	medias.forEach(itemMedia => {
+		const photographerLightboxModel = photographerMediaFactory(itemMedia);
+		const userLightboxDOM = photographerLightboxModel.createLightboxDOM();
+		lightbox.appendChild(userLightboxDOM);    
+	})	
+}
+
 
 // Fonction de tri via le Select 
 function sortMedia(media, triValue) {
@@ -66,11 +77,42 @@ function sortMedia(media, triValue) {
 
 // Ecoute de l'évènement Select et affichage du résultat du tri 
 function selectData(media) {
-	const select = document.querySelector('#test-select');
-	select.addEventListener('change', (e) => {
-		const sortedMedia = sortMedia(media, e.target.value);
-		displayDataGalery(sortedMedia);
+    const select = document.querySelector('#test-select');
+    select.addEventListener('change', (e) => {
+        const sortedMedia = sortMedia(media, e.target.value);
+        displayDataGalery(sortedMedia);
+			displayDataLightbox(sortedMedia)
+    })
+}
+
+
+// Calcul Slide Image Lightbox
+function setLightboxEvents(mediaLength){
+	const nextButton = document.querySelector('.lightbox-next')
+	const prevButton = document.querySelector('.lightbox-prev')
+	const lightbox = document.querySelector('.lightbox');
+	const lightboxSlide = document.querySelector('.lightbox li');
+	const slideWidth = lightboxSlide.clientWidth
+	let idx = 0;
+	
+	// Flèche de gauche, précédente 
+	prevButton.addEventListener('click', () => {
+		idx -= 1
+		if(idx === -1){
+			idx = mediaLength - 1
+		}
+		console.log(idx)
+		lightbox.style.transform = `translateX(-${slideWidth * idx}px)`
 	})
+	// Flèche de droite, suivante
+	nextButton.addEventListener('click', () => {
+		idx += 1
+		if(idx === mediaLength){
+			idx = 0
+		}
+		lightbox.style.transform = `translateX(-${slideWidth * idx}px)`
+	})
+
 }
 
 
@@ -82,5 +124,7 @@ async function init() {
 	displayDataGalery(sortedMedia);
 	selectData(media);
 	getLikesPrice(media, photographer);
+	displayDataLightbox(sortedMedia);
+		setLightboxEvents(media.length);
 }
 init();

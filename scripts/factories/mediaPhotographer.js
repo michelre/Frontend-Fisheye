@@ -48,6 +48,14 @@ function photographerMediaFactory(media) {
 	} = media;
 	let likes = media.likes;
 
+	// Fonction création du DOM lightbox
+	function createLightboxDOM() {
+		const mediaItem = document.createElement('li');
+		const mediaFactory = new MediaFactory(media);
+		mediaItem.innerHTML = mediaFactory.render();
+		return mediaItem;
+	}
+
 	function CreateGaleryDom() {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
@@ -94,10 +102,9 @@ function photographerMediaFactory(media) {
 			totalLike.innerText = parseInt(totalLike.innerText) + 1;
 			likesElement.setAttribute('disabled', ''); // Ajouter un aria une fois le bouton désactiver pour indiquer à l'utilisateur qu'il ne peut que liker qu'une fois 
 		})
-		
 		return (photographerArticle);
 	}
-	return { CreateGaleryDom };
+	return { CreateGaleryDom, createLightboxDOM };
 }
 
 
