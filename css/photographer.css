@@ -270,9 +270,9 @@ form input {
 
     transform: translate(-50%, -50%);
     overflow: hidden;
-
-    /*     visibility: hidden; */
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .5s linear;
 }
 
 
@@ -283,9 +283,7 @@ form input {
     background: rgba(255, 255, 255, 1);
     left: 0;
     top: 0;
-    
-    /*     visibility: hidden; */
-    display: none;
+    visibility: hidden;
 }
 
 .lightbox {
@@ -295,6 +293,7 @@ form input {
     padding: 0;
     list-style: none;
     height: 100%;
+    width: 100%;
     transition: all .5s linear;
 }
 
