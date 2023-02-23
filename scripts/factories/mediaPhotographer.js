@@ -94,7 +94,7 @@ function photographerMediaFactory(media) {
 		photographerArticle.appendChild(photographerMedia);
 		photographerArticle.appendChild(photographerArticleInfos);
 
-		/* Ajout au clic d'un like par photo*/ 
+		/* Ajout au clic d'un like par photo */ 
 		likesElement.addEventListener('click', () => {
 			likes += 1;
 			likesCount.innerText = likes;
@@ -140,3 +140,34 @@ function getLikesPrice (media, photographer) {
 	photographerPrice.innerHTML = `${photographer.price}€ / jour`;
 }
 
+
+
+
+/* TEST - AFFICHAGE MODALE LIGHTBOX */ 
+const lightboxModal = document.getElementsByClassName("lightbox-container");
+function displayLightbox() {
+	// lightboxModal.classList.add("visible");
+	lightboxModal.style.display = "block";
+	document.querySelector("body").style.overflow = "hidden"
+}
+
+
+
+/* TEST - FERMETURE MODALE LIGHTBOX */
+// Déclaration constante fermeture de la modale
+const closeLightbox = document.querySelector(".lightbox-close");
+closeLightbox.addEventListener("click", closeModal);
+// Fonction déterminant la fermeture de la modale
+function closeModal() {
+	lightboxModal.style.display = "none";
+}
+
+// Fermeture de la modale via la touche Echap
+const keyCodes = {
+	escape: "Escape"
+};
+window.addEventListener('keydown', (event) => {
+	if (event.code === keyCodes.escape) {
+		closeModal();
+	}
+})

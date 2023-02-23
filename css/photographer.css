@@ -271,7 +271,8 @@ form input {
     transform: translate(-50%, -50%);
     overflow: hidden;
 
-        /*    visibility: hidden; */
+    /*     visibility: hidden; */
+    display: none;
 }
 
 
@@ -284,6 +285,7 @@ form input {
     top: 0;
     
     /*     visibility: hidden; */
+    display: none;
 }
 
 .lightbox {
