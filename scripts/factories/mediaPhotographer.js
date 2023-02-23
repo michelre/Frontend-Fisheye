@@ -48,10 +48,11 @@ function photographerMediaFactory(media) {
 	} = media;
 	let likes = media.likes;
 
+	// Fonction création du DOM lightbox
 	function createLightboxDOM() {
 		const mediaItem = document.createElement('li');
-		const mediaFactory = new MediaFactory(media)
-		mediaItem.innerHTML = mediaFactory.render()
+		const mediaFactory = new MediaFactory(media);
+		mediaItem.innerHTML = mediaFactory.render();
 		return mediaItem;
 	}
 
@@ -93,7 +94,7 @@ function photographerMediaFactory(media) {
 		photographerArticle.appendChild(photographerMedia);
 		photographerArticle.appendChild(photographerArticleInfos);
 
-		/* Ajout au clic d'un like par photo*/ 
+		/* Ajout au clic d'un like par photo */ 
 		likesElement.addEventListener('click', () => {
 			likes += 1;
 			likesCount.innerText = likes;
@@ -101,7 +102,6 @@ function photographerMediaFactory(media) {
 			totalLike.innerText = parseInt(totalLike.innerText) + 1;
 			likesElement.setAttribute('disabled', ''); // Ajouter un aria une fois le bouton désactiver pour indiquer à l'utilisateur qu'il ne peut que liker qu'une fois 
 		})
-		
 		return (photographerArticle);
 	}
 	return { CreateGaleryDom, createLightboxDOM };
@@ -140,3 +140,34 @@ function getLikesPrice (media, photographer) {
 	photographerPrice.innerHTML = `${photographer.price}€ / jour`;
 }
 
+
+
+
+/* TEST - AFFICHAGE MODALE LIGHTBOX */ 
+const lightboxModal = document.getElementsByClassName("lightbox-container");
+function displayLightbox() {
+	// lightboxModal.classList.add("visible");
+	lightboxModal.style.display = "block";
+	document.querySelector("body").style.overflow = "hidden"
+}
+
+
+
+/* TEST - FERMETURE MODALE LIGHTBOX */
+// Déclaration constante fermeture de la modale
+const closeLightbox = document.querySelector(".lightbox-close");
+closeLightbox.addEventListener("click", closeModal);
+// Fonction déterminant la fermeture de la modale
+function closeModal() {
+	lightboxModal.style.display = "none";
+}
+
+// Fermeture de la modale via la touche Echap
+const keyCodes = {
+	escape: "Escape"
+};
+window.addEventListener('keydown', (event) => {
+	if (event.code === keyCodes.escape) {
+		closeModal();
+	}
+})
