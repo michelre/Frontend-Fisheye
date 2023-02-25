@@ -56,7 +56,7 @@ function photographerMediaFactory(media) {
 		return mediaItem;
 	}
 
-	function CreateGaleryDom() {
+	function CreateGaleryDom(idx) {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
 		const photographerArticle = document.createElement("article");
@@ -89,6 +89,7 @@ function photographerMediaFactory(media) {
 
 		const mediaFactory = new MediaFactory(media);
 		photographerMedia.classList.add('photographer-galery-media');
+		photographerMedia.setAttribute('data-idx', idx);
 		photographerMedia.innerHTML = mediaFactory.render();
 
 		photographerArticle.appendChild(photographerMedia);
@@ -146,28 +147,9 @@ function getLikesPrice (media, photographer) {
 /* TEST - AFFICHAGE MODALE LIGHTBOX */ 
 const lightboxModal = document.getElementsByClassName("lightbox-container");
 function displayLightbox() {
-	// lightboxModal.classList.add("visible");
 	lightboxModal.style.display = "block";
 	document.querySelector("body").style.overflow = "hidden"
 }
 
 
 
-/* TEST - FERMETURE MODALE LIGHTBOX */
-// Déclaration constante fermeture de la modale
-const closeLightbox = document.querySelector(".lightbox-close");
-closeLightbox.addEventListener("click", closeModal);
-// Fonction déterminant la fermeture de la modale
-function closeModal() {
-	lightboxModal.style.display = "none";
-}
-
-// Fermeture de la modale via la touche Echap
-const keyCodes = {
-	escape: "Escape"
-};
-window.addEventListener('keydown', (event) => {
-	if (event.code === keyCodes.escape) {
-		closeModal();
-	}
-})

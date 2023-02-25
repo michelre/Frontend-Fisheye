@@ -3,6 +3,9 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const photographerId = parseInt(urlParams.get("id")); 
 
+// Initialisation de l'index photo Lightbox
+let lightboxIdx = 0;
+
 
 // Récupération des datas des différents photographes via un fetch
 async function getPhotographer() {
@@ -36,9 +39,9 @@ async function displayDataPhotographer(photographer) {
 async function displayDataGalery(media) {
 	const photographerGalery = document.querySelector('.photographer-galery');
 	photographerGalery.innerHTML = '';
-	media.forEach(itemMedia => {
+	media.forEach((itemMedia, idx) => {
 		const photographerGaleryModel = photographerMediaFactory(itemMedia);
-		const userGaleryCardDOM = photographerGaleryModel.CreateGaleryDom();
+		const userGaleryCardDOM = photographerGaleryModel.CreateGaleryDom(idx);
 		photographerGalery.appendChild(userGaleryCardDOM);    
 	})
 }
@@ -81,38 +84,109 @@ function selectData(media) {
     select.addEventListener('change', (e) => {
         const sortedMedia = sortMedia(media, e.target.value);
         displayDataGalery(sortedMedia);
-			displayDataLightbox(sortedMedia)
+		displayDataLightbox(sortedMedia);
+		setGalleryEvent();
     })
 }
 
 
-// Calcul Slide Image Lightbox
+// Evènements modale Lightbox
 function setLightboxEvents(mediaLength){
-	const nextButton = document.querySelector('.lightbox-next')
-	const prevButton = document.querySelector('.lightbox-prev')
+	const lightboxModal = document.querySelector(".lightbox-container");
 	const lightbox = document.querySelector('.lightbox');
+	const lightboxBg = document.querySelector(".lightbox-bg");
+	const prevButton = document.querySelector('.lightbox-prev');
+	const nextButton = document.querySelector('.lightbox-next');
+	const closeLightbox = document.querySelector(".lightbox-close");
 	const lightboxSlide = document.querySelector('.lightbox li');
-	const slideWidth = lightboxSlide.clientWidth
-	let idx = 0;
-	
-	// Flèche de gauche, précédente 
-	prevButton.addEventListener('click', () => {
-		idx -= 1
-		if(idx === -1){
-			idx = mediaLength - 1
+	const slideWidth = lightboxSlide.clientWidth;
+
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+const likesPrices = document.getElementById('likes-price');
+
+	// Comportements suites à l'action bouton escape, flèche précédente, flèche suivante
+	const keyCodes = {
+		escape: "Escape",
+		previous: "ArrowLeft",
+		next: "ArrowRight"
+	};
+	window.addEventListener('keydown', (event) => {
+		if (event.code === keyCodes.escape) {
+			closeModal();
 		}
-		console.log(idx)
-		lightbox.style.transform = `translateX(-${slideWidth * idx}px)`
-	})
-	// Flèche de droite, suivante
-	nextButton.addEventListener('click', () => {
-		idx += 1
-		if(idx === mediaLength){
-			idx = 0
+		if (event.code === keyCodes.previous) {
+			previousSlide();
 		}
-		lightbox.style.transform = `translateX(-${slideWidth * idx}px)`
+		if (event.code === keyCodes.next) {
+			nextSlide();
+		}
 	})
 
+    // Déclenchement fermeture Lightbox au clic croix
+    closeLightbox.addEventListener("click", closeModal);
+    // Déclenchement flèche de gauche, précédente
+    prevButton.addEventListener('click', previousSlide)
+    // Déclenchement flèche de droite, suivante
+    nextButton.addEventListener('click', nextSlide)
+
+
+	// Fonction déterminant le comportement de la Lightbox suites à sa fermeture
+	function closeModal() {
+		lightboxModal.style.opacity = 0;
+		setTimeout(() => {
+			lightboxModal.style.visibility = "hidden";
+		}, 500)
+		lightboxBg.style.visibility = "hidden";
+
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+likesPrices.style.visibility = "visible";
+
+	}
+
+	// Calcul translation flèche de gauche, précédente 
+    function previousSlide() {
+        lightboxIdx -= 1
+        if (lightboxIdx === -1) {
+            lightboxIdx = mediaLength - 1
+        }
+        lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
+    }
+	// Calcul translation flèche de droite, suivante
+    function nextSlide() {
+        lightboxIdx += 1
+        if (lightboxIdx === mediaLength) {
+            lightboxIdx = 0
+        }
+        lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
+    }
+
+}
+
+// Affichage Lightbox en fonction en fonction de l'index des photos de la gallerie
+function setGalleryEvent(){
+	const galleryMedias = document.querySelectorAll('.photographer-galery-media');
+    const lightboxContainer = document.querySelector('.lightbox-container');
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxBg = document.querySelector('.lightbox-bg');
+    const lightboxSlide = document.querySelector('.lightbox li');
+    const slideWidth = lightboxSlide.clientWidth;
+ 
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+const likesPrices = document.getElementById('likes-price');
+
+	galleryMedias.forEach((galleryMedia) => {
+		galleryMedia.addEventListener('click', (event) => {
+            lightboxIdx = parseInt(event.currentTarget.dataset.idx);
+			lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`;
+            lightboxContainer.style.visibility = 'visible';
+            lightboxContainer.style.opacity = 1;
+            lightboxBg.style.visibility = 'visible';
+
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+likesPrices.style.visibility = "hidden";
+
+		})
+	})
 }
 
 
@@ -125,6 +199,7 @@ async function init() {
 	selectData(media);
 	getLikesPrice(media, photographer);
 	displayDataLightbox(sortedMedia);
-		setLightboxEvents(media.length);
+	setLightboxEvents(media.length);
+	setGalleryEvent();
 }
 init();
