@@ -147,12 +147,9 @@ function getLikesPrice (media, photographer) {
 /* TEST - AFFICHAGE MODALE LIGHTBOX */ 
 const lightboxModal = document.getElementsByClassName("lightbox-container");
 function displayLightbox() {
-	// lightboxModal.classList.add("visible");
 	lightboxModal.style.display = "block";
 	document.querySelector("body").style.overflow = "hidden"
 }
 
 
 
-/* TEST - FERMETURE MODALE LIGHTBOX */
-// Déclaration constante fermeture de la modale

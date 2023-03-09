@@ -1,82 +1,81 @@
 // Récupération des identifiants des photographes dans l'URL 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const photographerId = parseInt(urlParams.get("id"));
+const photographerId = parseInt(urlParams.get("id")); 
+
+// Initialisation de l'index photo Lightbox
 let lightboxIdx = 0;
 
 
 // Récupération des datas des différents photographes via un fetch
 async function getPhotographer() {
     const photographers = await fetch("./data/photographers.json")
-        .then((res) => res.json())
-        .then(data => data.photographers)
-    return {
-        photographer: photographers.find(p => p.id === photographerId)
-    };
+		.then((res) => res.json())
+		.then(data => data.photographers)
+	return {
+		photographer: photographers.find(p => p.id === photographerId)           
+	};
 }
 
 
 // Récupération des datas MEDIA des différents photographes via un fetch 
 async function getMedia() {
     await fetch("./data/photographers.json")
-        .then((res) => res.json())
-        .then((data) => (media = data.media));
-    return {
-        media: media.filter(m => m.photographerId === photographerId)
-    };
+		.then((res) => res.json())
+		.then((data) => (media = data.media));
+	return {
+		media: media.filter(m => m.photographerId === photographerId)         
+	};
 }
 
 
 // Page photographe : Affichage des datas liées au profil des protographes
 async function displayDataPhotographer(photographer) {
-    photographerInfosHeader(photographer);
+	photographerInfosHeader(photographer);
 }
 
 
 // Affichage des photos dans la gallerie dédiée
 async function displayDataGalery(media) {
-    const photographerGalery = document.querySelector('.photographer-galery');
-    photographerGalery.innerHTML = '';
-    media.forEach((itemMedia, idx) => {
-        const photographerGaleryModel = photographerMediaFactory(itemMedia);
-        const userGaleryCardDOM = photographerGaleryModel.CreateGaleryDom(idx);
-        photographerGalery.appendChild(userGaleryCardDOM);
-    })
+	const photographerGalery = document.querySelector('.photographer-galery');
+	photographerGalery.innerHTML = '';
+	media.forEach((itemMedia, idx) => {
+		const photographerGaleryModel = photographerMediaFactory(itemMedia);
+		const userGaleryCardDOM = photographerGaleryModel.CreateGaleryDom(idx);
+		photographerGalery.appendChild(userGaleryCardDOM);    
+	})
 }
 
 // Affichage Lightbox
 function displayDataLightbox(medias) {
-    const lightbox = document.querySelector('.lightbox');
-    lightbox.innerHTML = '';
-    medias.forEach(itemMedia => {
-        const photographerLightboxModel = photographerMediaFactory(itemMedia);
-        const userLightboxDOM = photographerLightboxModel.createLightboxDOM();
-        lightbox.appendChild(userLightboxDOM);
-    })
+	const lightbox = document.querySelector('.lightbox');
+	lightbox.innerHTML = '';
+	medias.forEach(itemMedia => {
+		const photographerLightboxModel = photographerMediaFactory(itemMedia);
+		const userLightboxDOM = photographerLightboxModel.createLightboxDOM();
+		lightbox.appendChild(userLightboxDOM);    
+	})	
 }
 
 
 // Fonction de tri via le Select 
 function sortMedia(media, triValue) {
 
-    switch (triValue) {
-        case "popularite": {
-            return media.sort((a, b) => b.likes - a.likes);
-        }
+	switch (triValue) {
+		case "popularite": {
+			return media.sort((a, b) => b.likes - a.likes);
+		}
 
-        case "date": {
-            return media.sort((a, b) => new Date(a.date) - new Date(b.date));
-        }
-
-        case "titre": {
-            return media.sort((a, b) => {
-                if (a.title < b.title) {
-                    return -1;
-                }
-                return 1;
-            });
-        }
-    }
+		case "date": {
+			return media.sort((a, b) => new Date(a.date) - new Date(b.date));
+		}
+			
+		case "titre": {
+			return media.sort((a, b) => {
+				if (a.title < b.title) { return -1; } return 1;
+			});
+		}
+	}
 }
 
 // Ecoute de l'évènement Select et affichage du résultat du tri 
@@ -85,56 +84,74 @@ function selectData(media) {
     select.addEventListener('change', (e) => {
         const sortedMedia = sortMedia(media, e.target.value);
         displayDataGalery(sortedMedia);
-        displayDataLightbox(sortedMedia)
-        setGalleryEvent()
+		displayDataLightbox(sortedMedia);
+		setGalleryEvent();
     })
 }
 
 
-// Calcul Slide Image Lightbox
-function setLightboxEvents(mediaLength) {
-    const nextButton = document.querySelector('.lightbox-next')
-    const prevButton = document.querySelector('.lightbox-prev')
-    const lightbox = document.querySelector('.lightbox');
-    const lightboxSlide = document.querySelector('.lightbox li');
-    const closeLightbox = document.querySelector(".lightbox-close");
-    const lightboxModal = document.querySelector(".lightbox-container");
-    const lightboxBg = document.querySelector(".lightbox-bg");
-    const slideWidth = lightboxSlide.clientWidth
+// Evènements modale Lightbox
+function setLightboxEvents(mediaLength){
+	const lightboxModal = document.querySelector(".lightbox-container");
+	const lightbox = document.querySelector('.lightbox');
+	const lightboxBg = document.querySelector(".lightbox-bg");
+	const prevButton = document.querySelector('.lightbox-prev');
+	const nextButton = document.querySelector('.lightbox-next');
+	const closeLightbox = document.querySelector(".lightbox-close");
+	const lightboxSlide = document.querySelector('.lightbox li');
+	const slideWidth = lightboxSlide.clientWidth;
 
-    // Fermeture de la modale via la touche Echap
-    const keyCodes = {
-        escape: "Escape",
-        previous: 'ArrowLeft',
-        next: 'ArrowRight'
-    };
-    window.addEventListener('keydown', (event) => {
-        if (event.code === keyCodes.escape) {
-            closeModal();
-        }
-        if (event.code === keyCodes.previous) {
-            previousSlide();
-        }
-        if (event.code === keyCodes.next) {
-            nextSlide();
-        }
-    })
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+const likesPrices = document.getElementById('likes-price');
 
-    // Fermeture de la lightbox
+	// Comportements suites à l'action bouton escape, flèche précédente, flèche suivante
+	const keyCodes = {
+		escape: "Escape",
+		previous: "ArrowLeft",
+		next: "ArrowRight"
+	};
+	window.addEventListener('keydown', (event) => {
+		if (event.code === keyCodes.escape) {
+			closeModal();
+		}
+		if (event.code === keyCodes.previous) {
+			previousSlide();
+		}
+		if (event.code === keyCodes.next) {
+			nextSlide();
+		}
+	})
+
+    // Déclenchement fermeture Lightbox au clic croix
     closeLightbox.addEventListener("click", closeModal);
-    // Flèche de gauche, précédente
+    // Déclenchement flèche de gauche, précédente
     prevButton.addEventListener('click', previousSlide)
-    // Flèche de droite, suivante
+    // Déclenchement flèche de droite, suivante
     nextButton.addEventListener('click', nextSlide)
 
-    function closeModal() {
-        lightboxModal.style.opacity = 0;
-        setTimeout(() => {
-            lightboxModal.style.visibility = "hidden";
-        }, 500)
-        lightboxBg.style.visibility = "hidden";
-    }
 
+	// Fonction déterminant le comportement de la Lightbox suites à sa fermeture
+	function closeModal() {
+		lightboxModal.style.opacity = 0;
+		setTimeout(() => {
+			lightboxModal.style.visibility = "hidden";
+		}, 500)
+		lightboxBg.style.visibility = "hidden";
+
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+likesPrices.style.visibility = "visible";
+
+	}
+
+	// Calcul translation flèche de gauche, précédente 
+    function previousSlide() {
+        lightboxIdx -= 1
+        if (lightboxIdx === -1) {
+            lightboxIdx = mediaLength - 1
+        }
+        lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
+    }
+	// Calcul translation flèche de droite, suivante
     function nextSlide() {
         lightboxIdx += 1
         if (lightboxIdx === mediaLength) {
@@ -143,30 +160,30 @@ function setLightboxEvents(mediaLength) {
         lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
     }
 
-    function previousSlide() {
-        lightboxIdx -= 1
-        if (lightboxIdx === -1) {
-            lightboxIdx = mediaLength - 1
-        }
-        lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
-    }
-
 }
 
+// Affichage Lightbox en fonction en fonction de l'index des photos de la gallerie
 function setGalleryEvent(){
-	const galleryMedias = document.querySelectorAll('.photographer-galery-media')
-    const lightboxContainer = document.querySelector('.lightbox-container')
-    const lightbox = document.querySelector('.lightbox')
-    const lightboxBg = document.querySelector('.lightbox-bg')
+	const galleryMedias = document.querySelectorAll('.photographer-galery-media');
+    const lightboxContainer = document.querySelector('.lightbox-container');
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxBg = document.querySelector('.lightbox-bg');
     const lightboxSlide = document.querySelector('.lightbox li');
-    const slideWidth = lightboxSlide.clientWidth
+    const slideWidth = lightboxSlide.clientWidth;
+ 
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+const likesPrices = document.getElementById('likes-price');
+
 	galleryMedias.forEach((galleryMedia) => {
 		galleryMedia.addEventListener('click', (event) => {
-            lightboxIdx = parseInt(event.currentTarget.dataset.idx)
-			lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
-            lightboxContainer.style.visibility = 'visible'
-            lightboxContainer.style.opacity = 1
-            lightboxBg.style.visibility = 'visible'
+            lightboxIdx = parseInt(event.currentTarget.dataset.idx);
+			lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`;
+            lightboxContainer.style.visibility = 'visible';
+            lightboxContainer.style.opacity = 1;
+            lightboxBg.style.visibility = 'visible';
+
+// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
+likesPrices.style.visibility = "hidden";
 
 		})
 	})
@@ -174,16 +191,15 @@ function setGalleryEvent(){
 
 
 async function init() {
-    const {photographer} = await getPhotographer();
-    const {media} = await getMedia();
-    let sortedMedia = sortMedia(media, 'popularite'); // Par défaut select est sur popularite
-    displayDataPhotographer(photographer);
-    displayDataGalery(sortedMedia);
-    selectData(media);
-    getLikesPrice(media, photographer);
-    displayDataLightbox(sortedMedia);
-    setLightboxEvents(media.length);
-	setGalleryEvent()
+	const { photographer } = await getPhotographer();
+	const { media } = await getMedia();
+	let sortedMedia = sortMedia(media, 'popularite'); // Par défaut select est sur popularite 
+	displayDataPhotographer(photographer);
+	displayDataGalery(sortedMedia);
+	selectData(media);
+	getLikesPrice(media, photographer);
+	displayDataLightbox(sortedMedia);
+	setLightboxEvents(media.length);
+	setGalleryEvent();
 }
-
 init();
