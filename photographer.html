@@ -20,45 +20,43 @@
       <div class="photograph-header">
         <button class="infos-contact-button" onclick="displayModal()">Contactez-moi</button>
       </div>
+   
+      <!-- Menu select de tri des photos -->
+      <div class="select-container">
+          <label for="select-tri">Trier par</label>
+          <select name="tri" id="test-select">
+              <option value="popularite" tabindex="0">Popularité</option>
+              <option value="date" tabindex="0">Date</option>
+              <option value="titre" tabindex="0">Titre</option>
+          </select>
+      </div>
+
+      <!-- Gallerie Photos -->
+      <div class="photographer-galery"></div>
+
+      <!-- Lightbox -->
+      <div class="lightbox-container" role="dialog" aria-hidden="true" aria-label="lightbox photos">
+        <ul class="lightbox">
+          <!-- Gallerie d'images -->
+        </ul>
+        <button class="lightbox-close" aria-label="Fermer"></button>
+        <a class="slide lightbox-prev" aria-label="Photo précédente">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="slide lightbox-next" aria-label="Photo suivante">
+          <i class="fa fa-chevron-right"></i>
+        </a>
+      </div>
+      <div class="lightbox-bg"></div>
+
+      <div id="medias">
+        <!-- Injecter en js la mosaique des images -->
+      </div>
+
+      <div id="likes-price" aria-label="Total des likes et tarif journaliser par photographe">
+        <!-- Injecter en js l'encart réservé aux likes et au prix-->
+      </div>
     </main>
-
-
-    <!-- TEST : AJOUT DU MENU SELECT DE TRI DES PHOTOS -->
-    <div class="select-container">
-        <label for="select-tri">Trier par</label>
-        <select name="tri" id="test-select">
-            <option value="popularite" tabindex="0">Popularité</option>
-            <option value="date" tabindex="0">Date</option>
-            <option value="titre" tabindex="0">Titre</option>
-        </select>
-    </div>
-
-
-    <!-- Gallerie Photos -->
-    <div class="photographer-galery"></div>
-
-    <!-- Lightbox -->
-    <div class="lightbox-container" role="dialog" aria-hidden="true" aria-label="lightbox photos">
-      <ul class="lightbox">
-        <!-- Gallerie d'images -->
-      </ul>
-      <button class="lightbox-close" aria-label="Fermer"></button>
-      <a class="slide lightbox-prev" aria-label="Photo précédente">
-        <i class="fa fa-chevron-left"></i>
-      </a>
-      <a class="slide lightbox-next" aria-label="Photo suivante">
-        <i class="fa fa-chevron-right"></i>
-      </a>
-    </div>
-    <div class="lightbox-bg"></div>
-
-    <div id="medias">
-      <!-- Injecter en js la mosaique des images -->
-    </div>
-
-    <div id="likes-price" aria-label="Total des likes et tarif journaliser par photographe">
-      <!-- Injecter en js l'encart réservé aux likes et au prix-->
-    </div>
 
     <!-- Formulaire de Contact -->
     <div id="contact-modal" role="dialog" aria-hidden="true" aria-label="Formulaire de contact pour joindre le photographe" tabindex="1">
