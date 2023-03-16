@@ -52,7 +52,10 @@ function photographerMediaFactory(media) {
 	function createLightboxDOM() {
 		const mediaItem = document.createElement('li');
 		const mediaFactory = new MediaFactory(media);
+		const mediaTitle = document.createElement('h2');
+		mediaTitle.innerText = title
 		mediaItem.innerHTML = mediaFactory.render();
+		mediaItem.appendChild(mediaTitle)
 		return mediaItem;
 	}
 
