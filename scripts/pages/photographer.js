@@ -189,6 +189,7 @@ likesPrices.style.visibility = "hidden";
 	})
 }
 
+/* Validation console formulaire de contact */
 function setContactFormEvent(){
 	const form = document.querySelector('#contact');
 	form.addEventListener('submit', (e) => {
