@@ -82,6 +82,9 @@ function sortMedia(media, triValue) {
 // Ecoute de l'évènement Select et affichage du résultat du tri 
 function selectData(media) {
     const select = document.querySelector('#test-select');
+	if(!select){
+		return
+	}
     select.addEventListener('change', (e) => {
         const sortedMedia = sortMedia(media, e.target.value);
         displayDataGalery(sortedMedia);
@@ -203,6 +206,33 @@ function setContactFormEvent(){
 	})
 }
 
+function setSelectEvents(media){
+	const button = document.querySelector('#button-listbox')
+	const buttonSpan = document.querySelector('#button-listbox span')
+	const listbox = document.querySelector('#listbox-tri')
+	const listboxOptions = document.querySelectorAll('#listbox-tri > div')
+	button.addEventListener('click', () => {
+		if(listbox.classList.contains('opened')){
+			listbox.classList.remove('opened')
+		} else {
+			listbox.classList.add('opened')
+		}
+	})
+
+	listboxOptions.forEach((listboxOption) => {
+		listboxOption.addEventListener('click', () => {
+
+			const value = listboxOption.dataset.value
+			buttonSpan.innerText = listboxOption.innerText
+
+			const sortedMedia = sortMedia(media, value);
+			displayDataGalery(sortedMedia);
+			displayDataLightbox(sortedMedia);
+			setGalleryEvent();
+		})
+	})
+}
+
 
 async function init() {
 	const { photographer } = await getPhotographer();
@@ -214,6 +244,7 @@ async function init() {
 	getLikesPrice(media, photographer);
 	displayDataLightbox(sortedMedia);
 	setLightboxEvents(media.length);
+	setSelectEvents(media)
 	setGalleryEvent();
 	setContactFormEvent()
 }
