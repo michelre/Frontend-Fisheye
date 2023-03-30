@@ -32,6 +32,7 @@ async function getMedia() {
 // Page photographe : Affichage des datas liées au profil des protographes
 async function displayDataPhotographer(photographer) {
 	photographerInfosHeader(photographer);
+	photographerInfosContact(photographer)
 }
 
 

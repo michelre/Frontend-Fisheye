@@ -64,29 +64,32 @@
     <div id="contact-modal" role="dialog" aria-hidden="true" aria-label="Formulaire de contact pour joindre le photographe" tabindex="1">
 			<div class="modal" aria-labelledby="Contactez-moi">
 				<header>
-          <h2 id="contact-modal-title">Contactez-moi</h2>
+            <div>
+              <h2 id="contact-modal-title">Contactez-moi</h2>
+              <h2 id="contact-name"></h2>
+            </div>
           <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermeture modale contact" aria-label="Bouton de fermeture de la fenêtre de contact">
         </header>
 
 				<form id="contact">
 					<div>
 						<label for="prenom">Prénom</label>
-						<input type="text" name="prenom" id="prenom" />
+						<input type="text" name="prenom" id="prenom" required/>
             <span class="error-message">Merci de renseigner votre prénom</span>
 					</div>
           <div>
 						<label for="nom">Nom</label>
-						<input type="text" name="nom" id="nom" />
+						<input type="text" name="nom" id="nom" required/>
             <span class="error-message">Merci de renseigner votre nom</span>
 					</div>
           <div>
 						<label for="prenom">Email</label>
-						<input type="email" name="email" id="email" />
+						<input type="email" name="email" id="email" required/>
             <span class="error-message">Merci de renseigner une adresse mail valide</span>
 					</div>
           <div>
             <label for="message">Votre message</label>
-            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <textarea name="message" id="message" cols="30" rows="10" required></textarea>
           </div>
           <button type="submit" id="contact-modal-btn">Envoyer</button>
 				</form>

@@ -19,6 +19,13 @@ function photographerInfosHeader(photographer) {
 	return photographerHeader;
 }
 
+/* Permet de mettre à jour la modal de contact */
+function photographerInfosContact(photographer) {
+    const contactName = document.querySelector("#contact-name");
+    const { name } = photographer;
+	contactName.textContent = name
+}
+
 
 /* Factory Media permettant de trier image et vidéo */
 class MediaFactory {
@@ -42,10 +49,7 @@ class MediaFactory {
 // Fonction de création de la gallerie photos des photographes
 function photographerMediaFactory(media) {
 
-/* TEST */
-	const {
-		id, photographerId, title, image, video
-	} = media;
+	const { title } = media;
 	let likes = media.likes;
 
 	// Fonction création du DOM lightbox
