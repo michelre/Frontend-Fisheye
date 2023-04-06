@@ -1,105 +1,109 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+<head>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/photographer.css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
-  </head>
-  <body>
+</head>
+<body>
 
-    <header>
-      <a href="index.html" class="logoHeader">
-        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page" />
-      </a>
-    </header>
+<header>
+    <a href="index.html" class="logoHeader">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/>
+    </a>
+</header>
 
-    <main id="main" aria-hidden="false">
+<main id="main" aria-hidden="false">
 
-      <!-- Informations Photographe -->
-      <div class="photograph-header">
+    <!-- Informations Photographe -->
+    <div class="photograph-header">
         <button class="infos-contact-button" onclick="displayModal()">Contactez-moi</button>
-      </div>
-   
-      <!-- Menu select de tri des photos -->
-      <div class="select-container">
+    </div>
+
+    <!-- Menu select de tri des photos -->
+    <div class="select-container">
         <label for="select-tri">Trier par</label>
         <select name="tri" id="select">
-          <option value="popularite" tabindex="0">Popularité</option>
-          <option value="date" tabindex="0">Date</option>
-          <option value="titre" tabindex="0">Titre</option>
+            <option value="popularite" tabindex="0">Popularité</option>
+            <option value="date" tabindex="0">Date</option>
+            <option value="titre" tabindex="0">Titre</option>
         </select>
-      </div>
+    </div>
 
-      <!-- Gallerie Photos -->
-      <div class="photographer-galery"></div>
+    <!-- Gallerie Photos -->
+    <div class="photographer-galery"></div>
 
-      <!-- Lightbox -->
-      <div class="lightbox-container" role="dialog" aria-hidden="true" aria-label="lightbox photos">
+    <!-- Lightbox -->
+    <div class="lightbox-container" role="dialog" aria-hidden="true" aria-label="lightbox photos">
         <ul class="lightbox">
-          <!-- Gallerie d'images -->
+            <!-- Gallerie d'images -->
         </ul>
         <button class="lightbox-close" aria-label="Fermer"></button>
         <a class="slide lightbox-prev" aria-label="Photo précédente">
-          <i class="fa fa-chevron-left"></i>
+            <i class="fa fa-chevron-left"></i>
         </a>
         <a class="slide lightbox-next" aria-label="Photo suivante">
-          <i class="fa fa-chevron-right"></i>
+            <i class="fa fa-chevron-right"></i>
         </a>
-      </div>
-      <div class="lightbox-bg"></div>
+    </div>
+    <div class="lightbox-bg"></div>
 
-      <div id="medias">
+    <div id="medias">
         <!-- Injecter en js la mosaique des images -->
-      </div>
+    </div>
 
-      <div id="likes-price" aria-label="Total des likes et tarif journaliser par photographe">
+    <div id="likes-price" aria-label="Total des likes et tarif journaliser par photographe">
         <!-- Injecter en js l'encart dédié aux likes et au prix-->
-      </div>
-    </main>
+    </div>
+</main>
 
-    <!-- Formulaire de Contact -->
-    <div id="contact-modal" role="dialog" aria-hidden="true" aria-label="Formulaire de contact pour joindre le photographe" tabindex="1">
-			<div class="modal" aria-labelledby="Contactez-moi">
-				<header>
-          <div>
-            <h2 id="contact-modal-title">Contactez-moi</h2>
-            <h2 id="contact-name"></h2>
-          </div>
-          <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermeture modale contact" aria-label="Bouton de fermeture de la fenêtre de contact">
+<!-- Formulaire de Contact -->
+<div id="contact-modal" role="dialog" aria-hidden="true" aria-label="Formulaire de contact pour joindre le photographe"
+     tabindex="1">
+    <div class="modal" aria-labelledby="Contactez-moi">
+        <header>
+            <div>
+                <h2 id="contact-modal-title">Contactez-moi</h2>
+                <h2 id="contact-name"></h2>
+            </div>
+            <a href="#" class="close-contactform">
+                <img src="assets/icons/close.svg" alt="Fermeture modale contact"
+                     aria-label="Bouton de fermeture de la fenêtre de contact">
+            </a>
         </header>
 
-				<form id="contact">
-					<div>
-						<label for="prenom">Prénom</label>
-						<input type="text" name="prenom" id="prenom" required/>
-            <span class="error-message">Merci de renseigner votre prénom</span>
-					</div>
-          <div>
-						<label for="nom">Nom</label>
-						<input type="text" name="nom" id="nom" required/>
-            <span class="error-message">Merci de renseigner votre nom</span>
-					</div>
-          <div>
-						<label for="prenom">Email</label>
-						<input type="email" name="email" id="email" required/>
-            <span class="error-message">Merci de renseigner une adresse mail valide</span>
-					</div>
-          <div>
-            <label for="message">Votre message</label>
-            <textarea name="message" id="message" cols="30" rows="10" required></textarea>
-          </div>
-          <button type="submit" id="contact-modal-btn">Envoyer</button>
-				</form>
-			</div>
-		</div>  
+        <form id="contact">
+            <div>
+                <label for="prenom">Prénom</label>
+                <input type="text" name="prenom" id="prenom" required/>
+                <span class="error-message">Merci de renseigner votre prénom</span>
+            </div>
+            <div>
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" required/>
+                <span class="error-message">Merci de renseigner votre nom</span>
+            </div>
+            <div>
+                <label for="prenom">Email</label>
+                <input type="email" name="email" id="email" required/>
+                <span class="error-message">Merci de renseigner une adresse mail valide</span>
+            </div>
+            <div>
+                <label for="message">Votre message</label>
+                <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+            </div>
+            <button type="submit" id="contact-modal-btn">Envoyer</button>
+        </form>
+    </div>
+</div>
 
-    <script src="/scripts/utils/contactForm.js"></script>
-    <script src="/scripts/factories/mediaPhotographer.js"></script>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="https://kit.fontawesome.com/dc83823775.js" crossorigin="anonymous"></script>
-    
-  </body>
+<script src="scripts/utils/contactForm.js"></script>
+<script src="scripts/factories/mediaPhotographer.js"></script>
+<script src="scripts/pages/photographer.js"></script>
+<script src="https://kit.fontawesome.com/dc83823775.js" crossorigin="anonymous"></script>
+
+</body>
 </html>

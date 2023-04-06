@@ -185,12 +185,17 @@ function setGalleryEvent(){
 /* Validation console formulaire de contact */
 function setContactFormEvent(){
 	const form = document.querySelector('#contact');
+	const closeButton = document.querySelector('.close-contactform')
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		console.log(`Prénom: ${e.target.prenom.value}`)
 		console.log(`Nom: ${e.target.nom.value}`)
 		console.log(`Email: ${e.target.email.value}`)
 		console.log(`Message: ${e.target.message.value}`)
+		closeModal()
+	})
+
+	closeButton.addEventListener('click', () => {
 		closeModal()
 	})
 }
