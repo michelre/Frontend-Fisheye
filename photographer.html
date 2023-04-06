@@ -17,35 +17,20 @@
     </header>
 
     <main id="main" aria-hidden="false">
+
+      <!-- Informations Photographe -->
       <div class="photograph-header">
         <button class="infos-contact-button" onclick="displayModal()">Contactez-moi</button>
       </div>
    
       <!-- Menu select de tri des photos -->
       <div class="select-container">
-          <label for="select-tri">Trier par</label>
-          <!--<select name="tri" id="test-select">
-              <option value="popularite" tabindex="0">Popularité</option>
-                <hr>
-              <option value="date" tabindex="0">Date</option>
-                <div class="test-line"></div>
-              <option value="titre" tabindex="0">Titre</option>
-          </select>-->
-
-
-        <div>
-          <button id="button-listbox" aria-haspopup="listbox" aria-expanded>
-            <span>Popularité</span> <i class="fa fa-chevron-down"></i>
-          </button>
-          <div role="listbox" tabindex="0" id="listbox-tri" aria-activedescendant="date">
-            <div role="option" id="popularite" data-value="popularite">Popularité</div>
-            <hr>
-            <div role="option" id="date" data-value="date">Date</div>
-            <hr>
-            <div role="option" id="titre" data-value="titre">Titre</div>
-          </div>
-
-        </div>
+        <label for="select-tri">Trier par</label>
+        <select name="tri" id="select">
+          <option value="popularite" tabindex="0">Popularité</option>
+          <option value="date" tabindex="0">Date</option>
+          <option value="titre" tabindex="0">Titre</option>
+        </select>
       </div>
 
       <!-- Gallerie Photos -->
@@ -71,7 +56,7 @@
       </div>
 
       <div id="likes-price" aria-label="Total des likes et tarif journaliser par photographe">
-        <!-- Injecter en js l'encart réservé aux likes et au prix-->
+        <!-- Injecter en js l'encart dédié aux likes et au prix-->
       </div>
     </main>
 
@@ -79,11 +64,10 @@
     <div id="contact-modal" role="dialog" aria-hidden="true" aria-label="Formulaire de contact pour joindre le photographe" tabindex="1">
 			<div class="modal" aria-labelledby="Contactez-moi">
 				<header>
-                  <div>
-                    <h2 id="contact-modal-title">Contactez-moi</h2>
-                    <h2 id="contact-name"></h2>
-
-                  </div>
+          <div>
+            <h2 id="contact-modal-title">Contactez-moi</h2>
+            <h2 id="contact-name"></h2>
+          </div>
           <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermeture modale contact" aria-label="Bouton de fermeture de la fenêtre de contact">
         </header>
 
@@ -114,7 +98,6 @@
 
     <script src="/scripts/utils/contactForm.js"></script>
     <script src="/scripts/factories/mediaPhotographer.js"></script>
-    <script src="/scripts/factories/select.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="https://kit.fontawesome.com/dc83823775.js" crossorigin="anonymous"></script>
     

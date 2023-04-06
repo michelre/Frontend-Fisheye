@@ -81,8 +81,7 @@ h1 {
     font-weight: 400;
 }
 
-
-/* TESTS RESPONSIVE */ 
+/* RESPONSIVE - Desktop */ 
 @media screen and (max-width: 1279px) {
 
     .photographer_section {
@@ -97,7 +96,7 @@ h1 {
 
 }
 
-
+/* RESPONSIVE - Tablette */ 
 @media screen and (max-width: 767px) {
 
     header {
