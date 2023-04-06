@@ -1,7 +1,9 @@
+// Fonction de création des Cards photographes contenant leurs informations personnelles 
 function photographerFactory(data) {
 	const { name, portrait, city, country, tagline, price, id } = data;
 	const picture = `assets/photographers/${portrait}`;
     
+	// Création du DOM des Cards photographe 
 	function getUserCardDOM() {
 		const article = document.createElement( "article" );
 		const img = document.createElement( "img" );

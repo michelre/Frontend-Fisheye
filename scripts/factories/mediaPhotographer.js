@@ -19,13 +19,12 @@ function photographerInfosHeader(photographer) {
 	return photographerHeader;
 }
 
-/* Permet de mettre à jour la modal de contact */
+/* Permet de mettre à jour la modal de contact avec les informations du photographe (nom) */
 function photographerInfosContact(photographer) {
     const contactName = document.querySelector("#contact-name");
     const { name } = photographer;
 	contactName.textContent = name
 }
-
 
 /* Factory Media permettant de trier image et vidéo */
 class MediaFactory {
@@ -44,15 +43,13 @@ class MediaFactory {
 
 }
 
-
-
-// Fonction de création de la gallerie photos des photographes
+// Fonction de création de la galerie photos des photographes
 function photographerMediaFactory(media) {
 
 	const { title } = media;
 	let likes = media.likes;
 
-	// Fonction création du DOM lightbox
+	// Création du DOM lightbox
 	function createLightboxDOM() {
 		const mediaItem = document.createElement('li');
 		const mediaFactory = new MediaFactory(media);
@@ -63,6 +60,7 @@ function photographerMediaFactory(media) {
 		return mediaItem;
 	}
 
+	// Création du DOM galerie 
 	function CreateGaleryDom(idx) {
 		const BlocPhotographerGalery = document.querySelector(".photographer-galery");
 		BlocPhotographerGalery.classList.add("container");
@@ -72,8 +70,9 @@ function photographerMediaFactory(media) {
 		const photographerMedia = document.createElement("div");
 		//photographerMedia = setAttribute('href',"#")
 
+		// ------------ ????????? ------------- 
 
-		// Section ajoutant le nom de la photo 
+		// Section ajoutant les informations de la photo 
 		const photographerArticleInfos = document.createElement("div");
 		photographerArticleInfos.classList.add("photographer-galery-item-info");
 		const photographerArticleTitle = document.createElement("h2");
@@ -95,7 +94,7 @@ function photographerMediaFactory(media) {
 
 
 		const mediaFactory = new MediaFactory(media);
-		photographerMedia.classList.add('photographer-galery-media');
+		photographerMedia.classList.add('photographer-galery-media'); // ------------ ????????? -------------  
 		photographerMedia.setAttribute('data-idx', idx);
 		photographerMedia.innerHTML = mediaFactory.render();
 
@@ -116,15 +115,11 @@ function photographerMediaFactory(media) {
 }
 
 
-
-
-
-/* TEST - CREATION BLOC LIKES & PRICE */
+/* Fonction de création du bloc likes & price total en base de page */
 function getLikesPrice (media, photographer) {
 	const blocLikesPrice = document.querySelector("#likes-price");
 
-
-	/* TEST - AFFICHAGE LIKES */
+	/* Affichage des likes totaux */
 	const photographerLikes = document.createElement("div");
 	photographerLikes.className = "bloc-likes";
 	blocLikesPrice.appendChild(photographerLikes);
@@ -135,12 +130,11 @@ function getLikesPrice (media, photographer) {
 	photographerLikesHeart.className = "fas fa-heart";
 	photographerLikes.appendChild(photographerLikesHeart);
 
-	// Calcul de l'affichage des likes globale 
+	// Calcul de l'affichage des likes totaux
 	const likeCount = media.reduce((acc, curr) => acc + curr.likes, 0 );
 	totalLike.innerHTML = likeCount;
 
-
-	/* TEST - AFFICHAGE PRIX JOURNALIER PAR PHOTOGRAPHE */ 
+	/* Affichage du prix journalier par photographe */ 
 	const photographerPrice = document.createElement("span");
 	photographerPrice.setAttribute("aria-label", "Tarif journalier du photographe");
 	photographerPrice.className = "photographer-price";
@@ -148,10 +142,7 @@ function getLikesPrice (media, photographer) {
 	photographerPrice.innerHTML = `${photographer.price}€ / jour`;
 }
 
-
-
-
-/* TEST - AFFICHAGE MODALE LIGHTBOX */ 
+/* Fonction d'affichage de la modal lightbox */ 
 const lightboxModal = document.getElementsByClassName("lightbox-container");
 function displayLightbox() {
 	lightboxModal.style.display = "block";

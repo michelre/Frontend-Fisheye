@@ -6,7 +6,6 @@ const photographerId = parseInt(urlParams.get("id"));
 // Initialisation de l'index photo Lightbox
 let lightboxIdx = 0;
 
-
 // Récupération des datas des différents photographes via un fetch
 async function getPhotographer() {
     const photographers = await fetch("./data/photographers.json")
@@ -16,7 +15,6 @@ async function getPhotographer() {
 		photographer: photographers.find(p => p.id === photographerId)           
 	};
 }
-
 
 // Récupération des datas MEDIA des différents photographes via un fetch 
 async function getMedia() {
@@ -28,13 +26,11 @@ async function getMedia() {
 	};
 }
 
-
 // Page photographe : Affichage des datas liées au profil des protographes
 async function displayDataPhotographer(photographer) {
 	photographerInfosHeader(photographer);
 	photographerInfosContact(photographer)
 }
-
 
 // Affichage des photos dans la gallerie dédiée
 async function displayDataGalery(media) {
@@ -81,7 +77,7 @@ function sortMedia(media, triValue) {
 
 // Ecoute de l'évènement Select et affichage du résultat du tri 
 function selectData(media) {
-    const select = document.querySelector('#test-select');
+    const select = document.querySelector('#select');
     select.addEventListener('change', (e) => {
         const sortedMedia = sortMedia(media, e.target.value);
         displayDataGalery(sortedMedia);
@@ -89,7 +85,6 @@ function selectData(media) {
 		setGalleryEvent();
     })
 }
-
 
 // Evènements modale Lightbox
 function setLightboxEvents(mediaLength){
@@ -102,8 +97,8 @@ function setLightboxEvents(mediaLength){
 	const lightboxSlide = document.querySelector('.lightbox li');
 	const slideWidth = lightboxSlide.clientWidth;
 
-// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
-const likesPrices = document.getElementById('likes-price');
+	// Initialisation de la suppression bloc likes/prix suite à l'activation de la Lightbox 
+	const likesPrices = document.getElementById('likes-price');
 
 	// Comportements suites à l'action bouton escape, flèche précédente, flèche suivante
 	const keyCodes = {
@@ -130,7 +125,6 @@ const likesPrices = document.getElementById('likes-price');
     // Déclenchement flèche de droite, suivante
     nextButton.addEventListener('click', nextSlide)
 
-
 	// Fonction déterminant le comportement de la Lightbox suites à sa fermeture
 	function closeModal() {
 		lightboxModal.style.opacity = 0;
@@ -139,31 +133,31 @@ const likesPrices = document.getElementById('likes-price');
 		}, 500)
 		lightboxBg.style.visibility = "hidden";
 
-// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
-likesPrices.style.visibility = "visible";
+	// Réaffichage du bloc likes/prix suites à la fermeture de la Lightbox 
+	likesPrices.style.visibility = "visible";
 
 	}
 
-	// Calcul translation flèche de gauche, précédente 
+	// Calcul translation flèche de gauche Lightbox, précédente 
     function previousSlide() {
         lightboxIdx -= 1
-        if (lightboxIdx === -1) {
-            lightboxIdx = mediaLength - 1
-        }
+			if (lightboxIdx === -1) {
+				lightboxIdx = mediaLength - 1
+			}
         lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
     }
-	// Calcul translation flèche de droite, suivante
+	// Calcul translation flèche de droite Lightbox, suivante
     function nextSlide() {
         lightboxIdx += 1
-        if (lightboxIdx === mediaLength) {
-            lightboxIdx = 0
-        }
+			if (lightboxIdx === mediaLength) {
+				lightboxIdx = 0
+			}
         lightbox.style.transform = `translateX(-${slideWidth * lightboxIdx}px)`
     }
 
 }
 
-// Affichage Lightbox en fonction en fonction de l'index des photos de la gallerie
+// Fonction d'affichage de la Lightbox en fonction de l'index des photos de la gallerie
 function setGalleryEvent(){
 	const galleryMedias = document.querySelectorAll('.photographer-galery-media');
     const lightboxContainer = document.querySelector('.lightbox-container');
@@ -171,9 +165,9 @@ function setGalleryEvent(){
     const lightboxBg = document.querySelector('.lightbox-bg');
     const lightboxSlide = document.querySelector('.lightbox li');
     const slideWidth = lightboxSlide.clientWidth;
- 
-// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
-const likesPrices = document.getElementById('likes-price');
+	const likesPrices = document.getElementById('likes-price');
+
+	// ------------ ????????? ------------- 
 
 	galleryMedias.forEach((galleryMedia) => {
 		galleryMedia.addEventListener('click', (event) => {
@@ -182,9 +176,7 @@ const likesPrices = document.getElementById('likes-price');
             lightboxContainer.style.visibility = 'visible';
             lightboxContainer.style.opacity = 1;
             lightboxBg.style.visibility = 'visible';
-
-// Test suppresion bloc likes/prix suite à l'activation Lightbox ----- VALIDATION ?
-likesPrices.style.visibility = "hidden";
+			likesPrices.style.visibility = "hidden";
 
 		})
 	})
@@ -203,6 +195,7 @@ function setContactFormEvent(){
 	})
 }
 
+// ------------ ????????? ------------- 
 
 async function init() {
 	const { photographer } = await getPhotographer();
